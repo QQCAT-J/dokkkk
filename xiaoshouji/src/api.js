@@ -1,8 +1,15 @@
-const ENDPOINT = '/api/chat'
+const ENDPOINTS = {
+  'claude-haiku-4-5-20251001': '/api/chat',
+  'claude-sonnet-4-6': '/api/chat',
+  'claude-opus-4-6': '/api/chat',
+  'deepseek-chat': '/api/deepseek',
+  'gemini-2.0-flash': '/api/gemini',
+}
 
 export async function streamMessage({ model, system, messages, onChunk, onDone, onError }) {
   try {
-    const res = await fetch(ENDPOINT, {
+    const endpoint = ENDPOINTS[model] || '/api/chat'
+    const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

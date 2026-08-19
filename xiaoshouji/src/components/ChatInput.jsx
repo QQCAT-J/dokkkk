@@ -5,6 +5,8 @@ const MODELS = [
   { id: 'claude-haiku-4-5-20251001', label: 'Haiku' },
   { id: 'claude-sonnet-4-6',         label: 'Sonnet' },
   { id: 'claude-opus-4-6',           label: 'Opus' },
+  { id: 'deepseek-chat',             label: 'DeepSeek' },
+  { id: 'gemini-2.0-flash',          label: 'Gemini' },
 ]
 
 export default function ChatInput({ onSend, disabled, model, onModelChange }) {

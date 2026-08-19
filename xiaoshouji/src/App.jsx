@@ -15,6 +15,8 @@ const MODELS = [
   { id: 'claude-haiku-4-5-20251001', label: 'Haiku（快）' },
   { id: 'claude-sonnet-4-6',         label: 'Sonnet（推荐）' },
   { id: 'claude-opus-4-6',           label: 'Opus（强）' },
+  { id: 'deepseek-chat',             label: 'DeepSeek' },
+  { id: 'gemini-2.0-flash',          label: 'Gemini' },
 ]
 
 export default function App() {
