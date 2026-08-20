@@ -1,15 +1,16 @@
 import { useState, useRef } from 'react'
 import { fileToContentBlock } from '../api'
 
-const BUILTIN_MODELS = [
+const MODELS = [
   { id: 'claude-haiku-4-5-20251001', label: 'Haiku' },
   { id: 'claude-sonnet-4-6',         label: 'Sonnet' },
   { id: 'claude-opus-4-6',           label: 'Opus' },
   { id: 'deepseek-chat',             label: 'DeepSeek' },
   { id: 'gemini-2.0-flash',          label: 'Gemini' },
+  { id: 'relay-fable-5',             label: '中转-Fable5' },
 ]
 
-export default function ChatInput({ onSend, disabled, model, onModelChange, relayModels = [] }) {
+export default function ChatInput({ onSend, disabled, model, onModelChange }) {
   const [text, setText] = useState('')
   const [images, setImages] = useState([]) // { preview, block }
   const fileRef = useRef()
@@ -83,12 +84,7 @@ export default function ChatInput({ onSend, disabled, model, onModelChange, rela
         <button className="icon-btn" title="上传图片" onClick={() => fileRef.current?.click()}>🖼</button>
         <input ref={fileRef} type="file" accept="image/*" multiple style={{ display: 'none' }} onChange={onFile} />
         <select className="model-select" value={model} onChange={e => onModelChange(e.target.value)}>
-          {BUILTIN_MODELS.map(m => <option key={m.id} value={m.id}>{m.label}</option>)}
-          {relayModels.length > 0 && (
-            <optgroup label="中转站">
-              {relayModels.map(m => <option key={m.value} value={m.value}>{m.label}</option>)}
-            </optgroup>
-          )}
+          {MODELS.map(m => <option key={m.id} value={m.id}>{m.label}</option>)}
         </select>
       </div>
     </div>
