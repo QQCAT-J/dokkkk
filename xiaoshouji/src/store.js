@@ -14,6 +14,7 @@ export const loadSettings = () => get('settings', {
   model: 'claude-sonnet-4-6',
   profile: '',
   instructions: '',
+  customCSS: '',
 })
 export const saveSettings = (s) => set('settings', s)
 

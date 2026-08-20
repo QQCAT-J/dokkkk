@@ -1,41 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap');
+
 /* ── Design tokens ─────────────────────────────────────────── */
 :root {
-  --bg:          #0e0e14;
-  --bg-card:     #16151e;
-  --bg-hover:    #1e1d29;
-  --bg-input:    #1a1927;
-  --bg-overlay:  rgba(8,8,12,0.85);
-  --border:      rgba(255,255,255,0.07);
-  --border-mid:  rgba(255,255,255,0.11);
+  --bg:          #0d0c12;
+  --bg-card:     #17151f;
+  --bg-hover:    #201d2b;
+  --bg-input:    #1b1824;
+  --bg-overlay:  rgba(6,6,10,0.88);
+  --border:      rgba(255,255,255,0.06);
+  --border-mid:  rgba(255,255,255,0.1);
 
   --rose:        #c97090;
   --rose-dim:    rgba(201,112,144,0.5);
-  --rose-glow:   rgba(201,112,144,0.12);
+  --rose-glow:   rgba(201,112,144,0.1);
   --rose-dark:   #8a3d5a;
+  --gold:        #cfae7a;
 
-  --text:        #f0eaf3;
-  --text-muted:  #7a7088;
-  --text-dim:    #48435a;
+  --text:        #f1ebf2;
+  --text-muted:  #7d7390;
+  --text-dim:    #4a4560;
 
-  --bubble-user: #2b1a23;
-  --bubble-ai:   #16151e;
+  --bubble-user: #2c1a24;
+  --bubble-ai:   #17151f;
 
-  --radius:    12px;
-  --radius-sm: 8px;
-  --radius-lg: 18px;
+  --radius:    14px;
+  --radius-sm: 9px;
+  --radius-lg: 20px;
 
   --sidebar: 220px;
-  --header:  52px;
+  --header:  54px;
   --mobnav:  58px;
+
+  --font-body: 'Noto Sans SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-display: 'Noto Serif SC', 'PingFang SC', serif;
 }
 
 /* ── Reset ─────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body, #root { height: 100%; }
 body {
-  background: var(--bg);
+  background:
+    radial-gradient(ellipse 900px 500px at 15% -10%, rgba(201,112,144,0.05), transparent),
+    radial-gradient(ellipse 700px 600px at 100% 100%, rgba(138,61,90,0.06), transparent),
+    var(--bg);
+  background-attachment: fixed;
   color: var(--text);
-  font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -66,10 +76,11 @@ a { color: var(--rose); }
   flex-shrink: 0;
 }
 .header-logo {
-  font-size: 16px;
+  font-family: var(--font-display);
+  font-size: 17px;
   font-weight: 600;
   color: var(--rose);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   margin-right: 4px;
 }
 .header-nav {
@@ -177,10 +188,10 @@ a { color: var(--rose); }
   white-space: nowrap;
 }
 .btn-primary {
-  background: var(--rose);
+  background: linear-gradient(135deg, var(--rose), var(--rose-dark));
   color: #fff;
 }
-.btn-primary:hover { background: #d8809a; }
+.btn-primary:hover { filter: brightness(1.1); }
 .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-ghost {
   background: transparent;
@@ -231,10 +242,10 @@ a { color: var(--rose); }
   border-radius: var(--radius) var(--radius) var(--radius) 4px;
 }
 .message.user .message-bubble {
-  background: var(--bubble-user);
-  border: 1px solid rgba(201,112,144,0.15);
+  background: linear-gradient(155deg, var(--bubble-user), #24141d);
+  border: 1px solid rgba(201,112,144,0.18);
   border-radius: var(--radius) var(--radius) 4px var(--radius);
-  box-shadow: 2px 0 12px rgba(201,112,144,0.08);
+  box-shadow: 2px 4px 16px rgba(201,112,144,0.06);
 }
 .message-bubble img { max-width: 100%; border-radius: 8px; margin-top: 4px; }
 .message-bubble code {
@@ -301,7 +312,7 @@ a { color: var(--rose); }
   width: 38px;
   height: 38px;
   border-radius: var(--radius-sm);
-  background: var(--rose);
+  background: linear-gradient(135deg, var(--rose), var(--rose-dark));
   color: #fff;
   font-size: 16px;
   display: flex;
@@ -310,7 +321,7 @@ a { color: var(--rose); }
   transition: all 0.15s;
   flex-shrink: 0;
 }
-.send-btn:hover { background: #d8809a; }
+.send-btn:hover { filter: brightness(1.1); }
 .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 .input-toolbar {
   display: flex;

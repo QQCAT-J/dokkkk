@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { loadSettings, saveSettings } from './store'
 import ChatTab from './tabs/ChatTab'
 import RoleplayTab from './tabs/RoleplayTab'
@@ -24,6 +24,16 @@ export default function App() {
   const [settings, setSettings] = useState(loadSettings)
   const [showSettings, setShowSettings] = useState(false)
   const [draft, setDraft] = useState(null)
+
+  useEffect(() => {
+    let styleTag = document.getElementById('user-custom-css')
+    if (!styleTag) {
+      styleTag = document.createElement('style')
+      styleTag.id = 'user-custom-css'
+      document.head.appendChild(styleTag)
+    }
+    styleTag.textContent = settings.customCSS || ''
+  }, [settings.customCSS])
 
   const openSettings = () => {
     setDraft({ ...settings })
@@ -82,6 +92,18 @@ export default function App() {
               onChange={e => setDraft(p => ({ ...p, instructions: e.target.value }))}
               rows={5}
             />
+          </div>
+          <div className="field">
+            <label>自定义样式（CSS）</label>
+            <textarea
+              className="field"
+              placeholder={'粘贴 CSS 来改变界面外观，例如：\n:root { --rose: #7aa8c9; }\n.header-logo { font-family: cursive; }'}
+              value={draft.customCSS}
+              onChange={e => setDraft(p => ({ ...p, customCSS: e.target.value }))}
+              rows={6}
+              style={{ fontFamily: 'monospace', fontSize: 12 }}
+            />
+            <p className="field-hint">主色调变量：--rose（强调色）--bg（背景）--bubble-user / --bubble-ai（气泡）--font-display（标题字体）</p>
           </div>
         </Modal>
       )}
