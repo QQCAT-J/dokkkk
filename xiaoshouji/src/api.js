@@ -1,4 +1,4 @@
-const ENDPOINTS = {
+const BUILTIN_ENDPOINTS = {
   'claude-haiku-4-5-20251001': '/api/chat',
   'claude-sonnet-4-6': '/api/chat',
   'claude-opus-4-6': '/api/chat',
@@ -6,9 +6,10 @@ const ENDPOINTS = {
   'gemini-2.0-flash': '/api/gemini',
 }
 
-export async function streamMessage({ model, system, messages, onChunk, onDone, onError }) {
+export async function streamMessage({ model, system, messages, onChunk, onDone, onError, relayModels = [] }) {
   try {
-    const endpoint = ENDPOINTS[model] || '/api/chat'
+    const isRelay = relayModels.some(m => m.value === model)
+    const endpoint = BUILTIN_ENDPOINTS[model] || (isRelay ? '/api/relay' : '/api/chat')
     const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -17,6 +18,7 @@ export async function streamMessage({ model, system, messages, onChunk, onDone, 
         max_tokens: 8000,
         stream: true,
         ...(system ? { system } : {}),
+        ...(isRelay ? { relayModel: model } : {}),
         messages,
       }),
     })

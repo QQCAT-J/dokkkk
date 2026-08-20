@@ -78,6 +78,7 @@ export default function ChatTab({ settings }) {
       model,
       system: buildSystem(settings),
       messages: apiMessages,
+      relayModels: settings.relayModels,
       onChunk: (_, full) => {
         setChats(prev => updateLastMessage(prev, currentChatId, full))
       },
@@ -170,6 +171,7 @@ export default function ChatTab({ settings }) {
           disabled={loading}
           model={model}
           onModelChange={setModel}
+          relayModels={settings.relayModels}
         />
       </div>
     </div>

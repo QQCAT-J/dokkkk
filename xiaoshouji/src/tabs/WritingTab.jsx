@@ -280,6 +280,7 @@ function WritePanel({ novel, novelChars, chapters, activeChapterId, settings }) 
       model,
       system: buildWritingSystem({ novel, chars: novelChars, chapter: activeChapter, settings }),
       messages: apiMessages,
+      relayModels: settings.relayModels,
       onChunk: (_, full) => setChats(prev => updateLastWritingMessage(prev, currentChatId, full)),
       onDone:  (full)   => { setChats(prev => updateLastWritingMessage(prev, currentChatId, full || '（空响应）')); setLoading(false) },
       onError: (err)    => { setChats(prev => updateLastWritingMessage(prev, currentChatId, `❌ ${err}`)); setLoading(false) },
@@ -314,7 +315,7 @@ function WritePanel({ novel, novelChars, chapters, activeChapterId, settings }) 
         </div>
       )}
 
-      <ChatInput onSend={handleSend} disabled={loading} model={model} onModelChange={setModel} />
+      <ChatInput onSend={handleSend} disabled={loading} model={model} onModelChange={setModel} relayModels={settings.relayModels} />
 
       {showHistory && (
         <Modal title="创作记录" onClose={() => setShowHistory(false)}>

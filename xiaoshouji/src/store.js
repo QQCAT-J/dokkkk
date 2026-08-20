@@ -15,6 +15,7 @@ export const loadSettings = () => get('settings', {
   profile: '',
   instructions: '',
   customCSS: '',
+  relayModels: [{ label: '中转-Fable5', value: 'claude-fable-5' }],
 })
 export const saveSettings = (s) => set('settings', s)
 

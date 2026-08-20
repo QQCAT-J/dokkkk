@@ -142,6 +142,7 @@ function CharChat({ char, settings, onOpenSidebar, onEdit }) {
       model,
       system: buildCharSystem(char, settings),
       messages: apiMessages,
+      relayModels: settings.relayModels,
       onChunk: (_, full) => setChats(prev => updateLastCharMessage(char.id, prev, currentChatId, full)),
       onDone:  (full)   => { setChats(prev => updateLastCharMessage(char.id, prev, currentChatId, full || '（空响应）')); setLoading(false) },
       onError: (err)    => { setChats(prev => updateLastCharMessage(char.id, prev, currentChatId, `❌ ${err}`)); setLoading(false) },
@@ -184,7 +185,7 @@ function CharChat({ char, settings, onOpenSidebar, onEdit }) {
         </div>
       )}
 
-      <ChatInput onSend={handleSend} disabled={loading} model={model} onModelChange={setModel} />
+      <ChatInput onSend={handleSend} disabled={loading} model={model} onModelChange={setModel} relayModels={settings.relayModels} />
 
       {showHistory && (
         <Modal title="对话记录" onClose={() => setShowHistory(false)}>

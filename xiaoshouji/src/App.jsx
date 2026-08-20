@@ -71,6 +71,7 @@ export default function App() {
             <label>默认模型</label>
             <select className="field input" value={draft.model} onChange={e => setDraft(p => ({ ...p, model: e.target.value }))}>
               {MODELS.map(m => <option key={m.id} value={m.id}>{m.label}</option>)}
+              {(draft.relayModels || []).map(m => <option key={m.value} value={m.value}>{m.label}</option>)}
             </select>
           </div>
           <div className="field">
@@ -104,6 +105,44 @@ export default function App() {
               style={{ fontFamily: 'monospace', fontSize: 12 }}
             />
             <p className="field-hint">主色调变量：--rose（强调色）--bg（背景）--bubble-user / --bubble-ai（气泡）--font-display（标题字体）</p>
+          </div>
+          <div className="field">
+            <label>中转站模型</label>
+            <div className="wb-list">
+              {(draft.relayModels || []).map((m, i) => (
+                <div key={i} className="wb-entry">
+                  <input
+                    value={m.label}
+                    onChange={e => setDraft(p => ({
+                      ...p,
+                      relayModels: p.relayModels.map((r, j) => j === i ? { ...r, label: e.target.value } : r),
+                    }))}
+                    placeholder="显示名，比如：中转-Opus"
+                    style={{ maxWidth: 130 }}
+                  />
+                  <input
+                    value={m.value}
+                    onChange={e => setDraft(p => ({
+                      ...p,
+                      relayModels: p.relayModels.map((r, j) => j === i ? { ...r, value: e.target.value } : r),
+                    }))}
+                    placeholder="真实模型名，比如：claude-opus-4-6-thinking"
+                  />
+                  <button
+                    className="wb-del"
+                    onClick={() => setDraft(p => ({ ...p, relayModels: p.relayModels.filter((_, j) => j !== i) }))}
+                  >✕</button>
+                </div>
+              ))}
+              <button
+                className="btn btn-ghost btn-sm"
+                style={{ alignSelf: 'flex-start' }}
+                onClick={() => setDraft(p => ({ ...p, relayModels: [...(p.relayModels || []), { label: '', value: '' }] }))}
+              >
+                ＋ 添加中转模型
+              </button>
+            </div>
+            <p className="field-hint">右边填中转站页面上那个模型代码（例如 claude-opus-4-6-thinking），左边随便起个名字，加完保存后聊天输入框的模型下拉里就能选到。</p>
           </div>
         </Modal>
       )}
